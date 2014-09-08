@@ -1,6 +1,10 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['AttendanceFactories'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout,Subjects) {
+  $scope.subjects = Subjects.subjects;
+
+ 
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -33,11 +37,15 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.subjects = [
-    'DLD' , 'EM' , 'DMS' , 'M3' , 'COA' , 'DSC'
-  ];
+.controller('PlaylistsCtrl', function($scope,Subjects) {
+  $scope.subjects = Subjects.subjects;
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('UpdateController', function($scope, $stateParams) {
+  
+})
+
+.controller('ApplicationController', function($scope, $ionicNavBarDelegate) {
+  $scope.hideBackButton = true;
+
 });

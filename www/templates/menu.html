@@ -9,13 +9,17 @@
 
   <ion-side-menu side="left">
     <header class="bar bar-header bar-stable">
-      <h1 class="title">Left</h1>
+      <h1 class="title">Update</h1>
     </header>
     <ion-content class="has-header">
       <ion-list>
-        <ion-item nav-clear menu-close ng-click="login()">
-          Login
+        <ion-item nav-clear menu-close href="#/app/playlists">
+        Home
         </ion-item>
+        <ion-item nav-clear menu-close href="#/app/update/:{{subject.id}}" ng-repeat="subject in subjects">
+          {{subject.name}}
+        </ion-item>
+        <!--
         <ion-item nav-clear menu-close href="#/app/search">
           Search
         </ion-item>
@@ -24,7 +28,7 @@
         </ion-item>
         <ion-item nav-clear menu-close href="#/app/playlists">
           Playlists
-        </ion-item>
+        </ion-item>-->
       </ion-list>
     </ion-content>
   </ion-side-menu>
