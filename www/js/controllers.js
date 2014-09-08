@@ -2,47 +2,41 @@ angular.module('starter.controllers', ['AttendanceFactories'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,Subjects) {
   $scope.subjects = Subjects.subjects;
-
- 
-
-  // Form data for the login modal
-  $scope.loginData = {};
-
-  // Create the login modal that we will use later
-  $ionicModal.fromTemplateUrl('templates/login.html', {
-    scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  // Triggered in the login modal to close it
-  $scope.closeLogin = function() {
-    $scope.modal.hide();
-  };
-
-  // Open the login modal
-  $scope.login = function() {
-    $scope.modal.show();
-  };
-
-  // Perform the login action when the user submits the login form
-  $scope.doLogin = function() {
-    console.log('Doing login', $scope.loginData);
-
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
-  };
+  
 })
 
 .controller('PlaylistsCtrl', function($scope,Subjects) {
   $scope.subjects = Subjects.subjects;
+  
 })
 
-.controller('UpdateController', function($scope, $stateParams) {
+.controller('UpdateController', function($scope, $stateParams,Subjects) {
+  var subjects = Subjects.subjects;
+  var curSubject = $stateParams.subjectId;
+  var name = "";
+
+  for(var i = 0; i < subjects.length; i++) {
+    if(':' + subjects[i].id === curSubject) {
+       name = subjects[i].name;
+      break;
+    }
+
+  }
+  $scope.subject = subjects[i];
   
+  $scope.present = function () {
+    subjects[i].total++;
+    subjects[i].present++;
+    Subjects.update(subjects);
+  }
+
+  $scope.absent = function () {
+    subjects[i].total++;
+    Subjects.update(subjects);
+  }
+
+
+
 })
 
 .controller('ApplicationController', function($scope, $ionicNavBarDelegate) {

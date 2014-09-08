@@ -16,7 +16,7 @@
         <ion-item nav-clear menu-close href="#/app/playlists">
         Home
         </ion-item>
-        <ion-item nav-clear menu-close href="#/app/update/:{{subject.id}}" ng-repeat="subject in subjects">
+        <ion-item nav-clear menu-close  ng-repeat="subject in subjects" href="#/app/update/:{{subject.id}}">
           {{subject.name}}
         </ion-item>
         <!--
