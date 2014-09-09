@@ -5,8 +5,53 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   
 })
 
-.controller('PlaylistsCtrl', function($scope,Subjects) {
+.controller('PlaylistsCtrl', function($scope,Subjects,$ionicModal) {
   $scope.subjects = Subjects.subjects;
+  console.log($scope.subjects);
+  var cur_id = 0;
+
+  if($scope.subjects !== []) {
+    cur_id = $scope.subjects.length || 0;
+  }
+
+  $ionicModal.fromTemplateUrl('addSubject.html',{
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+
+  $scope.$on('$destroy', function () {
+    $scope.modal.remove();
+  });
+
+  $scope.$on('modal.removed', function() {
+
+  });
+
+  $scope.add = function(subject) {
+    if(subject != "") {
+      var newSub = {
+        name: subject,
+        id: cur_id + 1,
+        total: 0,
+        present: 0,
+        last: [-1]
+      };
+      $scope.subjects.push(newSub);
+      console.log($scope.subjects);
+      Subjects.update($scope.subjects); 
+      $scope.modal.hide();
+    }
+  };
 
 })
 
@@ -65,4 +110,29 @@ angular.module('starter.controllers', ['AttendanceFactories'])
 .controller('ApplicationController', function($scope, $ionicNavBarDelegate) {
   $scope.hideBackButton = true;
 
+})
+
+.controller('MyController', function($scope,$ionicModal) {
+  $ionicModal.fromTemplateUrl('addSubject.html',{
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+
+  $scope.closeModal = function () {
+    $scope.modal.hide();
+  };
+
+  $scope.$on('$destroy', function () {
+    $scope.modal.remove();
+  });
+
+  $scope.$on('modal.removed', function() {
+
+  });
 });

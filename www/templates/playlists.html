@@ -23,6 +23,29 @@
       <span class="item item-note">Present:{{sub.present}}</span>
         <span class="item item-note">Total:{{sub.total}}</span>
       </ion-item>
+      <button class="button button-block icon-left ion-plus-circled" ng-click="openModal()">Add Subjects</button>
       </ion-list>
   </ion-content>
 </ion-view>
+
+<script id="addSubject.html" type="text/ng-template">
+        <ion-modal-view >
+            <ion-header-bar class="bar-secondary">
+                <h1 class="title">New Subjects</h1>
+                <button class="button button-clear button-positive" ng-click="closeModal()">Cancel</button>
+            </ion-header-bar>
+            <ion-content>
+              <form ng-submit="add(title)">
+                <div class="list">
+                  <label class="item item-input">
+                    <input type="text" placeholder="New Subject" ng-model="title">
+                  </label>
+                  </div>
+                <div class="padding">
+                  <button type="submit" class="button button-block button-positive">Add Subject</button>
+                </div>
+                </div>
+              </form>
+            </ion-content>
+        </ion-modal-view>
+    </script>
