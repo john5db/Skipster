@@ -44,7 +44,7 @@ angular.module('starter.controllers', ['AttendanceFactories'])
     }
     else if(subject != "") {
       var newSub = {
-        name: subject,
+        name: subject.title,
         id: cur_id + 1,
         total: 0,
         present: 0,
@@ -55,14 +55,17 @@ angular.module('starter.controllers', ['AttendanceFactories'])
       Subjects.update($scope.subjects); 
     }
     $scope.modal.hide();
-    //console.log(title);
-    //$scope.title = "";
+    subject.title="";
   };
 
   $scope.reset = function() {
     /*var new1 = [];
     //$scope.subjects = [];
     Subjects.update(new1);*/
+    while($scope.subjects.length != 0)
+    $scope.subjects.pop();
+
+    Subjects.update($scope.subjects);
 
   };
 

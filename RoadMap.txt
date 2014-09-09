@@ -1,4 +1,1 @@
 
-
-reset function not working \
-title fix
