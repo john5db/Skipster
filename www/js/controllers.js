@@ -38,7 +38,11 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   });
 
   $scope.add = function(subject) {
-    if(subject != "") {
+    //console.log(subject);
+    if(subject == undefined) {
+      $scope.modal.hide();
+    }
+    else if(subject != "") {
       var newSub = {
         name: subject,
         id: cur_id + 1,
@@ -47,10 +51,19 @@ angular.module('starter.controllers', ['AttendanceFactories'])
         last: [-1]
       };
       $scope.subjects.push(newSub);
-      console.log($scope.subjects);
+      //console.log($scope.subjects);
       Subjects.update($scope.subjects); 
-      $scope.modal.hide();
     }
+    $scope.modal.hide();
+    //console.log(title);
+    //$scope.title = "";
+  };
+
+  $scope.reset = function() {
+    /*var new1 = [];
+    //$scope.subjects = [];
+    Subjects.update(new1);*/
+
   };
 
 })
@@ -76,12 +89,18 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   $scope.present = function () {
     subjects[i].total++;
     subjects[i].present++;
+    if(subjects[i].last.length >= 6) {
+      subjects[i].last.shift();
+    }
     subjects[i].last.push(1);
     Subjects.update(subjects);
   }
 
   $scope.absent = function () {
     subjects[i].total++;
+    if(subjects[i].last.length >= 6) {
+      subjects[i].last.shift();
+    }
     subjects[i].last.push(0);
     Subjects.update(subjects);
   }
