@@ -1,20 +1,21 @@
-<ion-view title="Current Status">
+<ion-view hide-back-button="true" title="Current Status">
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-content class="has-header" overflow-scroll="true">
     <ion-list >
     
-      <ion-item ng-repeat="sub in subjects" >
+      <ion-item ng-repeat="sub in subjects" ng-init="percent=((sub.present/sub.total*100)||0).toFixed(2)">
         {{sub.name}}
         
-        <span class="badge badge-assertive">{{(sub.present/sub.total*100)||0}}%</span>
+        <span class="badge">{{percent}}%</span>
         <!--<progress max="{{sub.total}}" value="{{sub.present}} "></progress>-->
-        
-        <div class="progress">
+        <br />
+        <div class="progress" ng-init="col = (percent < 75 ? 'red' : (percent <85 ? '#0099CC' : 'green'))">
           <span id="percent"></span>
-          <div id="bar" ></div>
+          <div id="bar" ng-style = "{ width: '{{percent||0}}%' , 'background-color': '{{col}}' }"></div>
         </div>
+        <br />
       
       <a class="item assertive item-note" href='#/app/update/:{{sub.id}}'>
       	Update

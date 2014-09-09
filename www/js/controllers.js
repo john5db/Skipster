@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['AttendanceFactories'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,Subjects) {
-  $scope.subjects = Subjects.subjects;
+  $scope.subjects = Subjects.subjects;  
   
 })
 
@@ -16,6 +16,7 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   var name = "";
   var action = 0;
 
+
   for(var i = 0; i < subjects.length; i++) {
     if(':' + subjects[i].id === curSubject) {
        name = subjects[i].name;
@@ -25,29 +26,37 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   }
   $scope.subject = subjects[i];
   
+  
+
   $scope.present = function () {
     subjects[i].total++;
     subjects[i].present++;
-    Subjects.update(subjects,1);
+    subjects[i].last.push(1);
+    Subjects.update(subjects);
   }
 
   $scope.absent = function () {
     subjects[i].total++;
-    Subjects.update(subjects,0);
+    subjects[i].last.push(0);
+    Subjects.update(subjects);
   }
 
 
 
   $scope.undo = function() {
-    var last = Subjects.retrive();
+    var last = subjects[i].last.pop();
     if(last == 1) {
+    if(!(subjects[i].total == 0 || subjects[i].present == 0 || subjects[i].total-1 < subjects[i].present-1)) {
       subjects[i].total--;
-    subjects[i].present--;
-    Subjects.update(subjects,1);
+      subjects[i].present--;
+      Subjects.update(subjects);
+    }
     }
     else if(last == 0) {
+      if(!(subjects[i].total == 0 || subjects[i].present == 0 || subjects[i].total-1 < subjects[i].present)) {
       subjects[i].total--;
-    Subjects.update(subjects,0);
+    Subjects.update(subjects);
+  }
     }
   }
 
