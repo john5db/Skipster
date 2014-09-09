@@ -9,7 +9,12 @@
         {{sub.name}}
         
         <span class="badge badge-assertive">{{(sub.present/sub.total*100)||0}}%</span>
-        <progress max="{{sub.total}}" value="{{sub.present}} "></progress>
+        <!--<progress max="{{sub.total}}" value="{{sub.present}} "></progress>-->
+        
+        <div class="progress">
+          <span id="percent"></span>
+          <div id="bar" ></div>
+        </div>
       
       <a class="item assertive item-note" href='#/app/update/:{{sub.id}}'>
       	Update
