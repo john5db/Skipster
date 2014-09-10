@@ -6,28 +6,29 @@
     <button menu-toggle="right" class="button button-clear" ng-click="reset()">Reset</button>
   </ion-nav-buttons>
   <ion-content class="has-header" overflow-scroll="true">
-    <ion-list >
-    
+    <div class="list list-inset">
+      
       <ion-item ng-repeat="sub in subjects track by $index" ng-init="percent=((sub.present/sub.total*100)||0).toFixed(2)">
-        {{sub.name}}
-        
+        {{sub.name}} 
         <span class="badge">{{percent}}%</span>
         <!--<progress max="{{sub.total}}" value="{{sub.present}} "></progress>-->
         <br />
         <div class="progress" ng-init="col = (percent < 75 ? 'red' : (percent <85 ? '#0099CC' : 'green'))">
-          <span id="percent"></span>
           <div id="bar" ng-style = "{ width: '{{percent||0}}%' , 'background-color': '{{col}}' }"></div>
         </div>
         <br />
+      
       
       <a class="item assertive item-note" href='#/app/update/:{{sub.id}}'>
       	Update
       </a>
       <span class="item item-note">Present:{{sub.present}}</span>
         <span class="item item-note">Total:{{sub.total}}</span>
+        <!--<span class="item item-note">Remove</span>-->
+        <!--<span class="button button-assertive button-small remove">Remove</span>-->
       </ion-item>
       <button class="button button-block icon-left ion-plus-circled" ng-click="openModal()">Add Subjects</button>
-      </ion-list>
+      </div>
   </ion-content>
 </ion-view>
 

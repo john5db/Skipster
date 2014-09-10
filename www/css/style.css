@@ -16,3 +16,11 @@
  background-color: green;
  margin: 1%;
 }
+
+.remove {
+	border: 1px solid;
+	border-radius: 50px;
+	margin: 9px;
+
+}
+
