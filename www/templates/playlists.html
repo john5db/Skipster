@@ -3,20 +3,24 @@
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <button menu-toggle="right" class="button button-clear" ng-click="reset()">Reset</button>
+    <a class=" button-icon icon ion-settings"  href="#/app/set"></a>
   </ion-nav-buttons>
   <ion-content class="has-header" overflow-scroll="true">
-    <div class="list list-inset">
       
-      <ion-item ng-repeat="sub in subjects track by $index" ng-init="percent=((sub.present/sub.total*100)||0).toFixed(2)">
+      <div class="list list-inset" ng-repeat="sub in subjects track by $index" ng-init="percent=((sub.present/sub.total*100)||0).toFixed(2)">
+      
+        <div class="item item-body">
+     
+        <div class="item-text-wrap">
         {{sub.name}} 
         <span class="badge">{{percent}}%</span>
+        </div>
         <!--<progress max="{{sub.total}}" value="{{sub.present}} "></progress>-->
-        <br />
+        <div class="item-text-wrap">
         <div class="progress" ng-init="col = (percent < 75 ? 'red' : (percent <85 ? '#0099CC' : 'green'))">
           <div id="bar" ng-style = "{ width: '{{percent||0}}%' , 'background-color': '{{col}}' }"></div>
         </div>
-        <br />
+        </div>
       
       
       <a class="item assertive item-note" href='#/app/update/:{{sub.id}}'>
@@ -26,9 +30,10 @@
         <span class="item item-note">Total:{{sub.total}}</span>
         <!--<span class="item item-note">Remove</span>-->
         <!--<span class="button button-assertive button-small remove">Remove</span>-->
-      </ion-item>
-      <button class="button button-block icon-left ion-plus-circled" ng-click="openModal()">Add Subjects</button>
+        </div>
       </div>
+      <button class="button button-block icon-left ion-plus-circled" ng-click="openModal()">Add Subjects</button>
+      
   </ion-content>
 </ion-view>
 

@@ -14,7 +14,7 @@ angular.module('starter.controllers', ['AttendanceFactories'])
     cur_id = $scope.subjects.length || 0;
   }
 
-  $ionicModal.fromTemplateUrl('addSubject.html',{
+  $ionicModal.fromTemplateUrl('templates/addSubject.html',{
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {
@@ -58,17 +58,11 @@ angular.module('starter.controllers', ['AttendanceFactories'])
     subject.title="";
   };
 
-  $scope.reset = function() {
-    /*var new1 = [];
-    //$scope.subjects = [];
-    Subjects.update(new1);*/
-    while($scope.subjects.length != 0)
-    $scope.subjects.pop();
-
+  $scope.remove = function(subjectId) {
+    $scope.subjects.splice(subjectId,1);
     Subjects.update($scope.subjects);
-
-  };
-
+  }
+  
 })
 
 .controller('UpdateController', function($scope, $stateParams,Subjects) {
@@ -157,4 +151,11 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   $scope.$on('modal.removed', function() {
 
   });
-});
+})
+
+.controller('SetController', function($scope,Subjects) {
+  
+
+})
+
+;

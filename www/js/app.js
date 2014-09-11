@@ -57,16 +57,7 @@ angular.module('starter', ['ionic', 'starter.controllers','AttendanceFactories']
       }
     })
 
-    .state('app.single', {
-      url: "/playlists/:playlistId",
-      views: {
-        'menuContent' :{
-          templateUrl: "templates/playlist.html",
-          controller: 'PlaylistCtrl'
-        }
-      }
-    })
-
+    
     .state('app.update',{
       url: "/update/:subjectId",
       views: {
@@ -76,7 +67,16 @@ angular.module('starter', ['ionic', 'starter.controllers','AttendanceFactories']
         }
       }
     })
-    ;
+
+    .state('app.set', {
+      url: "/set",
+      views: {
+        'menuContent': {
+          templateUrl: "templates/set.html",
+          controller: 'PlaylistsCtrl'
+        }
+      } 
+    });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/playlists');
 
