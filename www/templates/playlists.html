@@ -1,60 +1,50 @@
-<ion-view hide-back-button="true" title="Current Status">
+<ion-view hide-back-button="true" title="Current Status" class="Content"  >
   <ion-nav-buttons side="left">
     <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   <ion-nav-buttons side="right">
-    <a class=" button-icon icon ion-settings"  href="#/app/set"></a>
+    <a class="button button-icon icon ion-settings"  href="#/app/set"></a>
   </ion-nav-buttons>
-  <ion-content class="has-header" overflow-scroll="true">
-      
+  <ion-content class="has-header has-footer" has-bouncing="true" overflow-scroll="true">
+      <div ng-show="empty">
+        <i class=""></i>
+        <div class="item-text-wrap welcom">
+          Let's get started by adding some subjects 
+        </div>
+        <i class=""></i>
+      </div>
       <div class="list list-inset" ng-repeat="sub in subjects track by $index" ng-init="percent=((sub.present/sub.total*100)||0).toFixed(2)">
       
-        <div class="item item-body">
+        <div class="item item-body sub">
      
         <div class="item-text-wrap">
-        {{sub.name}} 
+        {{sub.name}}
         <span class="badge">{{percent}}%</span>
         </div>
         <!--<progress max="{{sub.total}}" value="{{sub.present}} "></progress>-->
         <div class="item-text-wrap">
-        <div class="progress" ng-init="col = (percent < 75 ? 'red' : (percent <85 ? '#0099CC' : 'green'))">
+        <div class="progress" ng-init="col = (percent < lev ? 'red' : (percent < (lev +10) ? '#0099CC' : 'green'))">
           <div id="bar" ng-style = "{ width: '{{percent||0}}%' , 'background-color': '{{col}}' }"></div>
         </div>
         </div>
       
-      
-      <a class="item assertive item-note" href='#/app/update/:{{sub.id}}'>
-      	Update
+      <div class=" item-note">
+     
+      <span class="item item-note update present">Present:{{sub.present}}</span>
+        <span class="item item-note update total">Total:{{sub.total}}</span>
+         <a class="item assertive item-note update" href='#/app/update/:{{sub.id}}'>
+        Update
       </a>
-      <span class="item item-note">Present:{{sub.present}}</span>
-        <span class="item item-note">Total:{{sub.total}}</span>
+        </div>
         <!--<span class="item item-note">Remove</span>-->
         <!--<span class="button button-assertive button-small remove">Remove</span>-->
         </div>
       </div>
-      <button class="button button-block icon-left ion-plus-circled" ng-click="openModal()">Add Subjects</button>
-      
+
   </ion-content>
+      <div class="bar bar-footer bar-positive">
+        <h1 class="title icon-left ion-plus-circled" ng-click="openModal()">Add Subjects</h1> 
+      </div>
 </ion-view>
 
-<script id="addSubject.html" type="text/ng-template">
-        <ion-modal-view >
-            <ion-header-bar class="bar-secondary">
-                <h1 class="title">New Subjects</h1>
-                <button class="button button-clear button-positive" ng-click="closeModal()">Cancel</button>
-            </ion-header-bar>
-            <ion-content>
-              <form ng-submit="add(subject)">
-                <div class="list">
-                  <label class="item item-input">
-                    <input type="text" placeholder="New Subject" ng-model="subject.title">
-                  </label>
-                  </div>
-                <div class="padding">
-                  <button type="submit" class="button button-block button-positive">Add Subject</button>
-                </div>
-                </div>
-              </form>
-            </ion-content>
-        </ion-modal-view>
-    </script>
+

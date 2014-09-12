@@ -1,11 +1,13 @@
+  
+ 
+Notification Service  Done
 
+Desired Percent Done
 
-Notification Service
+Splash Screen Done
 
-Desired Percent
+Update History Monitor(version 2)
 
-Splash Screen
-
-Update History Monitor
+Reminder for today's attendance  Done
 
 Reminder Service

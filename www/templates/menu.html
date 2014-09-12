@@ -1,24 +1,24 @@
 <ion-side-menus>
 
   <ion-pane ion-side-menu-content>
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
+    <ion-nav-bar class="bar-assertive nav-title-slide-ios7">
       <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i> Back</ion-nav-back-button>
     </ion-nav-bar>
     <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
   </ion-pane>
 
   <ion-side-menu side="left">
-    <header class="bar bar-header bar-stable">
-      <h1 class="title">Update</h1>
+    <header class="bar bar-header bar-stable ">
+      <h1 class="title sideheader">Update</h1>
     </header>
-    <ion-content class="has-header">
+    <ion-content class="has-header sidemenu side">
       <ion-list>
-        <ion-item nav-clear menu-close href="#/app/playlists">
+        <a class="item side" nav-clear menu-close href="#/app/playlists">
         Home
-        </ion-item>
-        <ion-item nav-clear menu-close  ng-repeat="subject in subjects" href="#/app/update/:{{subject.id}}">
+        </a>
+        <a class="item side" nav-clear menu-close  ng-repeat="subject in subjects" href="#/app/update/:{{subject.id}}">
           {{subject.name}}
-        </ion-item>
+        </a>
         <!--
         <ion-item nav-clear menu-close href="#/app/search">
           Search

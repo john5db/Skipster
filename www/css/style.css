@@ -2,6 +2,7 @@
 #progress {
  width: 500px;   
  border: 1px solid black;
+ border-radius: 20px;
  position: relative;
  padding: 3px;
 }
@@ -12,9 +13,10 @@
 }
 
 #bar {
- height: 20px;
+ height: 3px;
  background-color: green;
  margin: 1%;
+ border-radius: 20px;
 }
 
 .remove {
@@ -24,3 +26,86 @@
 
 }
 
+.update {
+	padding: 10px;
+	margin: 5px;
+}
+
+.Content {
+	background-color: #fff;
+}
+
+.sub {
+	background-color: #fff;
+}
+
+.side {
+  background-color: #505050;
+  border: 1px solid gray;
+  color: #fff;
+}
+
+body {
+  cursor: url('http://ionicframework.com/img/finger.png'), auto;
+}
+.slider {
+  height: 100%;
+}
+.slider-slide {
+  padding-top: 80px;
+  color: #000;
+  background-color: #fff;
+  text-align: center;
+
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 300;
+}
+
+#logo {
+  margin: 30px 0px;
+}
+
+#list {
+  width: 170px;
+  margin: 30px auto;
+  font-size: 20px;
+}
+#list ol {
+  margin-top: 30px;
+}
+#list ol li {
+  text-align: left;
+  list-style: decimal;
+  margin: 10px 0px;
+}
+
+
+.reset {
+  background-color: red;
+}
+
+
+.sidemenu {
+  
+}
+
+.present {
+  color: green;
+}
+
+.total {
+  color: blue;
+}
+
+.sideheader {
+  background-color: #e8e8e8;
+}
+
+.welcom {
+  padding: 15%;
+  text-align: center;
+  font-family: cursive;
+  font-size:30px;
+  line-height: 42px;
+  color: gray;
+}

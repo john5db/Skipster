@@ -1,13 +1,44 @@
-angular.module('starter.controllers', ['AttendanceFactories'])
+angular.module('starter.controllers', ['AttendanceFactories','ngCordova.plugins.localNotification'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout,Subjects) {
   $scope.subjects = Subjects.subjects;  
   
+  
+  
 })
 
-.controller('PlaylistsCtrl', function($scope,Subjects,$ionicModal) {
+.controller('PlaylistsCtrl', function($scope,Subjects,$ionicModal,$state,$cordovaLocalNotification) {  
+
+  $scope.Attend = {
+    level:0
+  }
+
+  if(window.localStorage['level'] == undefined) {
+    window.localStorage['level'] = 75;
+  }
+
+  $scope.Attend.level = window.localStorage['level'];
+
+  $scope.$watch('Attend.level', function() {
+    window.localStorage['level'] = $scope.Attend.level;
+    console.log('Changed');
+  });
+
+  $scope.lev = parseInt($scope.Attend.level);
+
+  $scope.empty = false;
   $scope.subjects = Subjects.subjects;
   console.log($scope.subjects);
+  var check = function () {
+    if($scope.subjects == "") {
+      $scope.empty = true;
+    } else {
+      $scope.empty = false;
+    }
+  };
+  check();
+
+
   var cur_id = 0;
 
   if($scope.subjects !== []) {
@@ -38,6 +69,9 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   });
 
   $scope.add = function(subject) {
+    if($scope.subjects !== []) {
+    cur_id = $scope.subjects.length || 0;
+  }
     //console.log(subject);
     if(subject == undefined) {
       $scope.modal.hide();
@@ -56,16 +90,28 @@ angular.module('starter.controllers', ['AttendanceFactories'])
     }
     $scope.modal.hide();
     subject.title="";
+    check();
   };
 
   $scope.remove = function(subjectId) {
     $scope.subjects.splice(subjectId,1);
     Subjects.update($scope.subjects);
+    check();
   }
-  
+  $scope.reset = function() {
+    /*var new1 = [];
+    //$scope.subjects = [];
+    Subjects.update(new1);*/
+
+    while($scope.subjects.length != 0)
+    $scope.subjects.pop();
+
+    Subjects.update($scope.subjects);
+    check();
+  };
 })
 
-.controller('UpdateController', function($scope, $stateParams,Subjects) {
+.controller('UpdateController', function($scope, $stateParams,Subjects,$cordovaLocalNotification) {
   var subjects = Subjects.subjects;
   var curSubject = $stateParams.subjectId;
   var name = "";
@@ -91,17 +137,70 @@ angular.module('starter.controllers', ['AttendanceFactories'])
     }
     subjects[i].last.push(1);
     Subjects.update(subjects);
+    notify(subjects[i]);
   }
 
   $scope.absent = function () {
     subjects[i].total++;
     if(subjects[i].last.length >= 6) {
-      subjects[i].last.shift();
+      subjects[i].last.shift(subjects[i]);
     }
     subjects[i].last.push(0);
     Subjects.update(subjects);
+    notify(subjects[i]);
   }
 
+  var notify = function (sub) {
+    var d = new Date();
+    d.setHours(20);
+    d.setMinutes(00);
+
+    var percent = sub.present/sub.total * 100;
+
+    var tempPresent  = sub.present;
+    var tempTotal = sub.total;
+    var per= 0;
+
+    var lev = window.localStorage['level'];
+
+    while(per <= lev) {
+      per = (++(tempPresent)/++(tempTotal))*100;
+    }
+
+    var req = tempPresent - sub.present;
+    var not = {
+      id: '1665' + sub.id,
+      date: d,
+      repeat: 'daily',
+      title: 'Shortage in ' + sub.name,
+      message: 'Current - ' + (sub.present/sub.total * 100).toFixed(2) + '% : ' + req  + 'needed for ' + lev + '%'
+    }
+
+    //console.log(sub.name);
+
+    if(percent < lev && sub.total > 0) {
+     $cordovaLocalNotification.add(not);
+    } else {
+      $cordovaLocalNotification.cancel('1665' + sub.id);
+    }
+
+
+      var d = new Date();
+      d.setHours(20);
+      d.setMinutes(00);
+      var curDay = d.getDay();
+     d.setDay(curDay==6?0:curDay+1);
+
+    $cordovaLocalNotification.add({
+    id:'noti',
+    title:'ATTENTION',
+    repeat:'daily',
+    date: d,
+    message:"You have not updated today's class"
+    });
+
+
+     }
 
 
   $scope.undo = function() {
@@ -120,6 +219,8 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   }
     }
   }
+
+
 
 })
 
@@ -157,5 +258,4 @@ angular.module('starter.controllers', ['AttendanceFactories'])
   
 
 })
-
 ;

@@ -4,9 +4,12 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','AttendanceFactories'])
+angular.module('starter', ['ionic', 'starter.controllers','AttendanceFactories','ngCordova.plugins.localNotification','ngCordova.plugins.splashscreen'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform,$cordovaLocalNotification,$cordovaSplashscreen) {
+
+//$cordovaSplashscreen.show();
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,11 +20,27 @@ angular.module('starter', ['ionic', 'starter.controllers','AttendanceFactories']
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    var d = new Date();
+  d.setHours(20);
+  d.setMinutes(00);
+
+    $cordovaLocalNotification.add({
+    id:'noti',
+    title:'ATTENTION',
+    repeat:'minutely',
+    date: d,
+    message:"You have not updated today's class"
+    });
+
+  }).then(function(data) {
+    $cordovaSplashscreen.hide()
   });
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
+
 
     .state('app', {
       url: "/app",
