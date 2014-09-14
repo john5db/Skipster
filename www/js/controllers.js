@@ -118,6 +118,8 @@ angular.module('starter.controllers', ['AttendanceFactories','ngCordova.plugins.
   var action = 0;
 
 
+
+
   for(var i = 0; i < subjects.length; i++) {
     if(':' + subjects[i].id === curSubject) {
        name = subjects[i].name;
@@ -152,6 +154,11 @@ angular.module('starter.controllers', ['AttendanceFactories','ngCordova.plugins.
 
   var notify = function (sub) {
     var d = new Date();
+
+
+    if(d.getHours() >= 20) {
+      d.setDate(d.getDate() + 1);
+    } 
     d.setHours(20);
     d.setMinutes(00);
 
@@ -168,6 +175,7 @@ angular.module('starter.controllers', ['AttendanceFactories','ngCordova.plugins.
     }
 
     var req = tempPresent - sub.present;
+
     var not = {
       id: '1665' + sub.id,
       date: d,
@@ -181,15 +189,15 @@ angular.module('starter.controllers', ['AttendanceFactories','ngCordova.plugins.
     if(percent < lev && sub.total > 0) {
      $cordovaLocalNotification.add(not);
     } else {
-      $cordovaLocalNotification.cancel('1665' + sub.id);
+      $cordovaLocalNotification.cancel(not.id);
     }
 
 
       var d = new Date();
       d.setHours(20);
       d.setMinutes(00);
-      var curDay = d.getDay();
-     d.setDay(curDay==6?0:curDay+1);
+      var curDay = d.getDate();
+     d.setDate(curDay+1);
 
     $cordovaLocalNotification.add({
     id:'noti',
@@ -223,7 +231,7 @@ angular.module('starter.controllers', ['AttendanceFactories','ngCordova.plugins.
 
 
 })
-
+  
 .controller('ApplicationController', function($scope, $ionicNavBarDelegate) {
   $scope.hideBackButton = true;
 

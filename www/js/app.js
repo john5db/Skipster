@@ -21,17 +21,7 @@ angular.module('starter', ['ionic', 'starter.controllers','AttendanceFactories',
       StatusBar.styleDefault();
     }
 
-    var d = new Date();
-  d.setHours(20);
-  d.setMinutes(00);
-
-    $cordovaLocalNotification.add({
-    id:'noti',
-    title:'ATTENTION',
-    repeat:'minutely',
-    date: d,
-    message:"You have not updated today's class"
-    });
+   
 
   }).then(function(data) {
     $cordovaSplashscreen.hide()
